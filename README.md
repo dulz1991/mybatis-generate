@@ -1,2 +1,1 @@
-# shop_bbs
-shop and bbs
+# mybatis generate tool
