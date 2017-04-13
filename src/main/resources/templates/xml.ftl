@@ -27,7 +27,7 @@
 	<set>
 	<#list dealField2Column?keys as itemKey>
 		<if test="${itemKey} != null">  
-        	${dealField2Column[itemKey]}=${itemKey}
+        	${dealField2Column[itemKey]}=<#noparse>#{</#noparse>${itemKey}}
     	</if>
 	</#list>
 	</set>   
@@ -67,7 +67,7 @@
 
 
 <select id="getMapListByParm" parameterType="HashMap" resultType="HashMap">
-	select * from ${className} where 1=1 
+	select * from ${tableName} where 1=1 
 </select>
 
 

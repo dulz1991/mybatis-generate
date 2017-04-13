@@ -1,4 +1,4 @@
-package com.demo.my.base.bean;
+package com.sqe.shop.model;
 
 import java.io.Serializable;
 

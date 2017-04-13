@@ -84,16 +84,16 @@ public class Generate {
 			//填充ftl的数据
 			Map<String, Object> resMap = new HashMap<String, Object>();
 			//文件生成路径
-			String targetFile = PropertiesUtil.getProperty("generate.path") + "service\\" + convertText(tableName) + "ServiceBean.java";
+			String targetFile = PropertiesUtil.getProperty("generate.path") + "service\\" + convertText(tableName) + "Service.java";
 			
 			//类名
 			resMap.put("tableName", convertText(tableName));
 			
 			//自动生成文件
 			FreemarkerUtil.createFile("service.ftl", resMap, targetFile);
-			System.out.println("==================>创建文件 " + convertText(tableName) + "ServiceBean.java" + "成功!");	
+			System.out.println("==================>创建文件 " + convertText(tableName) + "Service.java" + "成功!");	
 		} catch (Exception e) {
-			System.out.println("==================>创建文件 " + convertText(tableName) + "ServiceBean.java" + "失败!");
+			System.out.println("==================>创建文件 " + convertText(tableName) + "Service.java" + "失败!");
 			System.out.println(e.getCause());
 		}		
 	}

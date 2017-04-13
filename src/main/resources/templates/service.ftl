@@ -1,11 +1,14 @@
-package com.demo.my.base.servicebean;
+package com.sqe.shop.service;
 
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import com.demo.my.base.service.AbstractService;
+import com.sqe.shop.mapper.${tableName?cap_first}Mapper;
 
-@Service("${tableName}ServiceBean")  
-public class ${tableName?cap_first}ServiceBean extends AbstractService {
+@Component  
+public class ${tableName?cap_first}Service extends AdapterService implements BaseService {
 	
+	@Autowired
+    ${tableName?cap_first}Mapper ${tableName}Mapper;
 
 }

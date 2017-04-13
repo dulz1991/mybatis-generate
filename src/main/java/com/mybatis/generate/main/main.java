@@ -15,7 +15,7 @@ import com.mybatis.generate.util.SqlUtil;
 
 public class main {
 	
-	private static String tableName = "t_product";
+	private static String tableName = "product";
 	static List<String> tableColumsList = new ArrayList<String>();
 	static Map<String, Object> field2Type = new HashMap<String, Object>();
 	static Map<String, Object> field2Column = new HashMap<String, Object>();
