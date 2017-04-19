@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>   
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
-<mapper namespace="com.sqe.shop.mapper.${className?cap_first}Mapper">
+<mapper namespace="com.sangame.datafilter.mapper.${className?cap_first}Mapper">
 
-<resultMap type="com.sqe.shop.model.${className?cap_first}" id="${className?cap_first}BaseMapper">
+<resultMap type="com.sangame.datafilter.model.${className?cap_first}" id="${className?cap_first}BaseMapper">
 	<#list dealField2Column?keys as itemKey>
 	<id property="${itemKey}" column="${dealField2Column[itemKey]}" />
 	</#list>
@@ -55,36 +55,28 @@
 	</#list>
 </select>
 
-<select id="getBeanListByParm" resultMap="${className?cap_first}BaseMapper">
+<select id="getListByParm" resultMap="${className?cap_first}BaseMapper">
 	select * from ${tableName} where 1=1 
 	<#list dealField2Column?keys as itemKey>
 		<#if itemKey!="id">
 			<if test="parm.${itemKey} != null">
 		     	and ${dealField2Column[itemKey]} = <#noparse>#{parm.</#noparse>${itemKey}}
 		   	</if>
-	   	</if>
+		</#if>
 	</#list>
 	<#noparse>
-		<if test="parm.orderby != null">
-	   		order by #{parm.orderby}
-	   	</if>
-		<if test="parm.start != null">
-			limit ${parm.start},${parm.limit}
+		<if test="page!=null and page.pageSize>0">
+			limit #{page.startRow},#{page.pageSize}
+		</if>
+		<if test="page!=null and page.orderby != null">
+			order by #{page.orderby}
 		</if>
 	</#noparse>
 </select>
 
 
 <select id="getMapListByParm" parameterType="HashMap" resultType="HashMap">
-	select * from ${tableName} where 1=1
-	<#noparse>
-		<if test="parm.orderby != null">
-	   		order by #{parm.orderby}
-	   	</if>
-		<if test="parm.start != null">
-			limit ${parm.start},${parm.limit}
-		</if>
-	</#noparse> 
+	select * from ${tableName} where 1=1 
 </select>
 
 
