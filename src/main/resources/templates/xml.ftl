@@ -62,14 +62,14 @@
 			<if test="parm.${itemKey} != null">
 		     	and ${dealField2Column[itemKey]} = <#noparse>#{parm.</#noparse>${itemKey}}
 		   	</if>
-	   	</if>
+	   	</#if>
 	</#list>
 	<#noparse>
 		<if test="parm.orderby != null">
 	   		order by #{parm.orderby}
 	   	</if>
 		<if test="parm.start != null">
-			limit ${parm.start},${parm.limit}
+			limit #{parm.start},#{parm.limit}
 		</if>
 	</#noparse>
 </select>
@@ -82,7 +82,7 @@
 	   		order by #{parm.orderby}
 	   	</if>
 		<if test="parm.start != null">
-			limit ${parm.start},${parm.limit}
+			limit #{parm.start},#{parm.limit}
 		</if>
 	</#noparse> 
 </select>

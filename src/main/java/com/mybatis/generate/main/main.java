@@ -15,14 +15,14 @@ import com.mybatis.generate.util.SqlUtil;
 
 public class main {
 	
-	private static String[] tables = {"user","role"};
-	private static String tableName = "product";
+	private static String[] tables = {"comment","image","inform","message","news","post","product","product_type","question_answer","questions","section","shop","topic","thread"};
+	private static String tableName = "advertisement";
 	static List<String> tableColumsList = new ArrayList<String>();
 	static Map<String, Object> field2Type = new HashMap<String, Object>();
 	static Map<String, Object> field2Column = new HashMap<String, Object>();
 	
 	public static void main(String[] args) {
-		/*for(String table : tables){
+		for(String table : tables){
 			tableColumsList.clear();
 			field2Type.clear();
 			field2Column.clear();
@@ -35,16 +35,16 @@ public class main {
 			}
 			//创建模板
 			generate();	
-		}*/
+		}
 		
-		//获取表字段
+		/*//获取表字段
 		getTable(tableName);
 		if(tableColumsList.isEmpty()){
 			System.out.println("表字段不存在");
 			return;
 		}
 		//创建模板
-		generate();
+		generate();*/
     }
 	
 	private static void generate() {
