@@ -49,6 +49,8 @@ public class Generate {
 			return "Date";
 		} else if(value.equals(4)) {
 			return "Integer";
+		} else if(value.equals(3)) {
+			return "Double";
 		}
 		return "String";
 	}
@@ -88,6 +90,7 @@ public class Generate {
 			
 			//类名
 			resMap.put("tableName", convertText(tableName));
+			resMap.put("className", firstWord2LowerCase(convertText(tableName)));
 			
 			//自动生成文件
 			FreemarkerUtil.createFile("service.ftl", resMap, targetFile);
@@ -144,6 +147,26 @@ public class Generate {
 			System.out.println("==================>创建文件 " + convertText(tableName) + "Mapper.xml" + "失败!");
 			System.out.println(e.getCause());
 		}
+	}
+	public static void generateController(String tableName) {
+		try {
+			tableName = tableName.toLowerCase();
+			//填充ftl的数据
+			Map<String, Object> resMap = new HashMap<String, Object>();
+			//文件生成路径
+			String targetFile = PropertiesUtil.getProperty("generate.path") + "controller\\" + convertText(tableName) + "Controller.java";
+			
+			//类名
+			resMap.put("tableName", convertText(tableName));
+			resMap.put("className", firstWord2LowerCase(convertText(tableName)));
+			
+			//自动生成文件
+			FreemarkerUtil.createFile("controller.ftl", resMap, targetFile);
+			System.out.println("==================>创建文件 " + convertText(tableName) + "Controller.java" + "成功!");	
+		} catch (Exception e) {
+			System.out.println("==================>创建文件 " + convertText(tableName) + "Controller.java" + "失败!");
+			System.out.println(e.getCause());
+		}	
 	}
 
 }

@@ -28,7 +28,7 @@
 	<#list dealField2Column?keys as itemKey>
 		<#if itemKey!="id">
 			<if test="${itemKey} != null">  
-	        	${dealField2Column[itemKey]}=<#noparse>#{</#noparse>${itemKey}}
+	        	${dealField2Column[itemKey]}=<#noparse>#{</#noparse>${itemKey}},
 	    	</if>
 		</#if>
 	</#list>
@@ -66,7 +66,7 @@
 	</#list>
 	<#noparse>
 		<if test="parm.orderby != null">
-	   		order by #{parm.orderby}
+	   		order by ${parm.orderby}
 	   	</if>
 		<if test="parm.start != null">
 			limit #{parm.start},#{parm.limit}
@@ -79,7 +79,7 @@
 	select * from ${tableName} where 1=1
 	<#noparse>
 		<if test="parm.orderby != null">
-	   		order by #{parm.orderby}
+	   		order by ${parm.orderby}
 	   	</if>
 		<if test="parm.start != null">
 			limit #{parm.start},#{parm.limit}

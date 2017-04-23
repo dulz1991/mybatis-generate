@@ -15,8 +15,8 @@ import com.mybatis.generate.util.SqlUtil;
 
 public class main {
 	
-	private static String[] tables = {"comment","image","inform","message","news","post","product","product_type","question_answer","questions","section","shop","topic","thread"};
-	private static String tableName = "advertisement";
+	private static String[] tables = {"admin","user","comment","image","inform","message","news","post","product","question_answer","questions","section","shop","topic","thread"};
+	private static String tableName = "product";
 	static List<String> tableColumsList = new ArrayList<String>();
 	static Map<String, Object> field2Type = new HashMap<String, Object>();
 	static Map<String, Object> field2Column = new HashMap<String, Object>();
@@ -51,6 +51,7 @@ public class main {
 		System.out.println("==================>开始创建文件");
 		Generate.generateModel(tableName, tableColumsList, field2Type);
 		Generate.generateService(tableName);
+		Generate.generateController(tableName);
 		Generate.generateMapper(tableName);
 		Generate.generateXml(tableName, tableColumsList, field2Type, field2Column);
 		System.out.println("==================>结束创建文件");
