@@ -55,6 +55,12 @@ public class Generate {
 		return "String";
 	}
 
+	/**
+	 * model
+	 * @param fileName
+	 * @param tableColumsList
+	 * @param columnMap
+	 */
 	public static void generateModel(String fileName, List<String> tableColumsList, Map<String, Object> columnMap) {
 		try {
 			//填充ftl的数据
@@ -80,6 +86,11 @@ public class Generate {
 			System.out.println(e.getCause());
 		}
 	}
+	
+	/**
+	 * service
+	 * @param tableName
+	 */
 	public static void generateService(String tableName) {
 		try {
 			tableName = tableName.toLowerCase();
@@ -100,6 +111,11 @@ public class Generate {
 			System.out.println(e.getCause());
 		}		
 	}
+	
+	/**
+	 * mapper
+	 * @param tableName
+	 */
 	public static void generateMapper(String tableName) {
 		try {
 			tableName = tableName.toLowerCase();
@@ -119,6 +135,14 @@ public class Generate {
 			System.out.println(e.getCause());
 		}	
 	}
+	
+	/**
+	 * xml
+	 * @param tableName
+	 * @param tableColumsList
+	 * @param field2Type
+	 * @param field2Column
+	 */
 	public static void generateXml(String tableName,
 			List<String> tableColumsList, Map<String, Object> field2Type,
 			Map<String, Object> field2Column) {
@@ -148,6 +172,11 @@ public class Generate {
 			System.out.println(e.getCause());
 		}
 	}
+	
+	/**
+	 * controller
+	 * @param tableName
+	 */
 	public static void generateController(String tableName) {
 		try {
 			tableName = tableName.toLowerCase();
@@ -165,6 +194,56 @@ public class Generate {
 			System.out.println("==================>创建文件 " + convertText(tableName) + "Controller.java" + "成功!");	
 		} catch (Exception e) {
 			System.out.println("==================>创建文件 " + convertText(tableName) + "Controller.java" + "失败!");
+			System.out.println(e.getCause());
+		}	
+	}
+	
+	/**
+	 * list
+	 * @param tableName
+	 */
+	public static void generateList(String tableName) {
+		try {
+			tableName = tableName.toLowerCase();
+			//填充ftl的数据
+			Map<String, Object> resMap = new HashMap<String, Object>();
+			//文件生成路径
+			String targetFile = PropertiesUtil.getProperty("generate.path") + "page\\" + convertText(tableName) + "list.ftl";
+			
+			//类名
+			resMap.put("tableName", convertText(tableName));
+			resMap.put("className", firstWord2LowerCase(convertText(tableName)));
+			
+			//自动生成文件
+			FreemarkerUtil.createFile("controller.ftl", resMap, targetFile);
+			System.out.println("==================>创建文件 " + convertText(tableName) + "list.ftl" + "成功!");	
+		} catch (Exception e) {
+			System.out.println("==================>创建文件 " + convertText(tableName) + "list.ftl" + "失败!");
+			System.out.println(e.getCause());
+		}	
+	}
+	
+	/**
+	 * edits
+	 * @param tableName
+	 */
+	public static void generateEdit(String tableName) {
+		try {
+			tableName = tableName.toLowerCase();
+			//填充ftl的数据
+			Map<String, Object> resMap = new HashMap<String, Object>();
+			//文件生成路径
+			String targetFile = PropertiesUtil.getProperty("generate.path") + "page\\" + convertText(tableName) + "edit.ftl";
+			
+			//类名
+			resMap.put("tableName", convertText(tableName));
+			resMap.put("className", firstWord2LowerCase(convertText(tableName)));
+			
+			//自动生成文件
+			FreemarkerUtil.createFile("controller.ftl", resMap, targetFile);
+			System.out.println("==================>创建文件 " + convertText(tableName) + "edit.ftl" + "成功!");	
+		} catch (Exception e) {
+			System.out.println("==================>创建文件 " + convertText(tableName) + "edit.ftl" + "失败!");
 			System.out.println(e.getCause());
 		}	
 	}

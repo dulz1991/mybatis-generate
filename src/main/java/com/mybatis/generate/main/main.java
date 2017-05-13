@@ -15,8 +15,8 @@ import com.mybatis.generate.util.SqlUtil;
 
 public class main {
 	
-	private static String[] tables = {"admin","user","comment","image","inform","message","news","post","product","question_answer","questions","section","shop","topic","thread"};
-	private static String tableName = "product";
+	private static String[] tables = {"user_thumb","advertisement","permission","role","user","comment","image","inform","message","news","post","product","product_type","question_answer","questions","section","shop","topic","thread"};
+	private static String tableName = "shop";
 	static List<String> tableColumsList = new ArrayList<String>();
 	static Map<String, Object> field2Type = new HashMap<String, Object>();
 	static Map<String, Object> field2Column = new HashMap<String, Object>();
