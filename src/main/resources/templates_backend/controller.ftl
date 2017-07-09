@@ -1,6 +1,5 @@
-package com.sqe.shop.controller.backend;
+package com.demo.my.backend.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -12,15 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.sqe.shop.common.BaseController;
-import com.sqe.shop.model.${tableName?cap_first};
-import com.sqe.shop.service.${tableName?cap_first}Service;
-import com.sqe.shop.util.PageUtil;
+import com.demo.my.base.service.${tableName?cap_first}Service;
+import com.demo.my.base.model.${tableName?cap_first};
+import com.demo.my.backend.common.BaseBackendController;
+import com.demo.my.base.util.Page;
 
 @Controller
 @RequestMapping("/backend/${className}")
-public class ${tableName?cap_first}Controller extends BaseController {
+public class ${tableName?cap_first}Controller extends BaseBackendController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(${tableName?cap_first}Controller.class);
 	
@@ -29,16 +27,18 @@ public class ${tableName?cap_first}Controller extends BaseController {
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public ModelAndView index() {
-		ModelAndView model = new ModelAndView("${className}/list");
+		ModelAndView model = new ModelAndView("${className}/${className}_list");
 		return model;
 	}
 	
 	@RequestMapping(value="/edit", method = RequestMethod.GET)
 	public ModelAndView edit(Long id) {
-		ModelAndView model = new ModelAndView("${className}/edit");
+		ModelAndView model = new ModelAndView("${className}/${className}_edit");
 		if(id!=null){
 			${tableName?cap_first} entity = ${className}Service.getById(id);
 			model.addObject("entity", entity);
+		} else {
+			model.addObject("entity", new ${tableName?cap_first}());
 		}
 		return model;
 	}
@@ -48,9 +48,18 @@ public class ${tableName?cap_first}Controller extends BaseController {
 	public Map<String, Object> getList(${tableName?cap_first} ${className},
 			@RequestParam(name="pageNo", defaultValue="1") int pageNo,  
 			@RequestParam(name="pageSize", defaultValue="10") int pageSize) {
-		PageUtil<${tableName?cap_first}> page = ${className}Service.getBeanListByParm(${className}, pageNo, pageSize);
+		//查询参数
+		Map<String, Object> parmMap =  this.getParmMap(${className});
+		parmMap.put("orderBy", "");
+		parmMap.put("pageNo", pageNo);
+		parmMap.put("pageSize", pageSize);
+		
+		//查询
+		Page<Map<String, Object>> page = ${className}Service.getPageMapByParm(parmMap);
 
-		Map<String, Object> resMap = new HashMap<String, Object>();
+		//返回参数
+		Map<String, Object> resMap = responseOK("");
+		resMap.put("list", page.getList());
 		resMap.put("page", page);
 		
 		return resMap;

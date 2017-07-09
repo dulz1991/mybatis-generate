@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>   
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
-<mapper namespace="com.sqe.shop.mapper.${className?cap_first}Mapper">
+<mapper namespace="com.demo.my.base.mybatis.mapper.ds1mapper.${className?cap_first}Mapper">
 
-<resultMap type="com.sqe.shop.model.${className?cap_first}" id="${className?cap_first}BaseMapper">
+<resultMap type="com.demo.my.base.model.${className?cap_first}" id="${className?cap_first}BaseMapper">
 	<#list dealField2Column?keys as itemKey>
 	<id property="${itemKey}" column="${dealField2Column[itemKey]}" />
 	</#list>

@@ -1,5 +1,5 @@
-<#include "/lib/baseMacro.ftl"> 
-<@base base_title="编辑" openIndex=1 activeIndex=0>
+<#noparse><#include "/base-lib/baseMacro.ftl"></#noparse> 
+<#noparse><@base base_title="编辑" openIndex=1 activeIndex=0></#noparse>
 	
 	<#-- @base 中间的内容将嵌套至 base 宏中的#nested处 -->
 	<!-- 编辑区 -->
@@ -10,6 +10,7 @@
 			</div>
 			<div class="panel-body">
 				<form class="form-horizontal form" id="form" action="javascript:void(0);">
+					<input type="hidden" name="id" value="<#noparse>${entity.id}</#noparse>">
 					<div class="form-group">
 						<div class="col-sm-3">
 						</div>
@@ -18,7 +19,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-12">
-							<button class="btn btn-info btn-icon" onclick="$.fn.doAutoSearch()">
+							<button class="btn btn-info btn-icon" onclick="$.fn.doSaveAndJump('.form','/backend/${className}/doSave','/backend/${className}/list')">
 								<span>提交</span>
 							</button>
 						</div>
@@ -35,4 +36,4 @@ $(function(){
 });
 </script>
 
-</@base> 
+<#noparse></@base></#noparse> 

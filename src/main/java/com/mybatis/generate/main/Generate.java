@@ -208,17 +208,17 @@ public class Generate {
 			//填充ftl的数据
 			Map<String, Object> resMap = new HashMap<String, Object>();
 			//文件生成路径
-			String targetFile = PropertiesUtil.getProperty("generate.path") + "page\\" + convertText(tableName) + "list.ftl";
+			String targetFile = PropertiesUtil.getProperty("generate.path") + "page\\" + tableName + "_list.ftl";
 			
 			//类名
-			resMap.put("tableName", convertText(tableName));
-			resMap.put("className", firstWord2LowerCase(convertText(tableName)));
+			resMap.put("className", convertText(tableName));
+			resMap.put("tableName", tableName);
 			
 			//自动生成文件
-			FreemarkerUtil.createFile("controller.ftl", resMap, targetFile);
-			System.out.println("==================>创建文件 " + convertText(tableName) + "list.ftl" + "成功!");	
+			FreemarkerUtil.createFile("list.ftl", resMap, targetFile);
+			System.out.println("==================>创建文件 " + tableName + "_list.ftl" + "成功!");	
 		} catch (Exception e) {
-			System.out.println("==================>创建文件 " + convertText(tableName) + "list.ftl" + "失败!");
+			System.out.println("==================>创建文件 " + tableName + "_list.ftl" + "失败!");
 			System.out.println(e.getCause());
 		}	
 	}
@@ -233,17 +233,17 @@ public class Generate {
 			//填充ftl的数据
 			Map<String, Object> resMap = new HashMap<String, Object>();
 			//文件生成路径
-			String targetFile = PropertiesUtil.getProperty("generate.path") + "page\\" + convertText(tableName) + "edit.ftl";
+			String targetFile = PropertiesUtil.getProperty("generate.path") + "page\\" + tableName + "_edit.ftl";
 			
 			//类名
-			resMap.put("tableName", convertText(tableName));
-			resMap.put("className", firstWord2LowerCase(convertText(tableName)));
+			resMap.put("className", convertText(tableName));
+			resMap.put("tableName", tableName);
 			
 			//自动生成文件
-			FreemarkerUtil.createFile("controller.ftl", resMap, targetFile);
-			System.out.println("==================>创建文件 " + convertText(tableName) + "edit.ftl" + "成功!");	
+			FreemarkerUtil.createFile("edit.ftl", resMap, targetFile);
+			System.out.println("==================>创建文件 " + tableName + "_edit.ftl" + "成功!");	
 		} catch (Exception e) {
-			System.out.println("==================>创建文件 " + convertText(tableName) + "edit.ftl" + "失败!");
+			System.out.println("==================>创建文件 " + tableName + "_edit.ftl" + "失败!");
 			System.out.println(e.getCause());
 		}	
 	}

@@ -1,4 +1,4 @@
-package com.demo.backend.model;
+package com.demo.my.base.model;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,5 +1,5 @@
-<#include "/lib/baseMacro.ftl"> 
-<@base base_title="列表" openIndex=1 activeIndex=0>
+<#noparse><#include "/base-lib/baseMacro.ftl"></#noparse> 
+<#noparse><@base base_title="列表" openIndex=1 activeIndex=0></#noparse>
 	
 	<#-- @base 中间的内容将嵌套至 base 宏中的#nested处 -->
     	<!-- 搜索区 -->
@@ -12,10 +12,8 @@
 						<form class="form-horizontal form" id="form" action="javascript:void(0);">
 							<div class="form-group">
 								<div class="col-sm-3">
-								</div>
-								<div class="col-sm-3">
-								</div>
-								<div class="col-sm-3">
+									title
+									<input type="text" class="form-control input" name="title" value="">
 								</div>
 							</div>
 							<div class="form-group">
@@ -70,9 +68,9 @@
 <script type="text/javascript">
 $(function(){
 	$('#datatable').datatable({
-		url_load : '/backend/product/getList',
-		url_edit : '/backend/product/edit',
-		url_remove : '/backend/product/doDelete',
+		url_load : '/backend/${className}/getList',
+		url_edit : '/backend/${className}/edit',
+		url_remove : '/backend/${className}/doDelete',
 		backFn : function(p) {
 			// console.log(p);
 		}
@@ -81,4 +79,4 @@ $(function(){
 });
 </script>
 
-</@base> 
+<#noparse></@base></#noparse> 

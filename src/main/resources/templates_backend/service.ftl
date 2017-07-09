@@ -1,19 +1,21 @@
-package com.demo.backedn.service;
+package com.demo.my.base.service;
 
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import com.demo.my.base.util.Page;
 
-import com.demo.backend.mapper.${tableName?cap_first}Mapper;
-import com.demo.backend.model.${tableName?cap_first};
-import com.demo.backend.util.PageUtil;
+import com.demo.my.base.model.${tableName?cap_first};
+import com.demo.my.base.mybatis.mapper.ds1mapper.${tableName?cap_first}Mapper;
+
+import com.demo.my.base.service.common.AdapterService;
+
 
 @Component  
-public class ${tableName?cap_first}Service extends AdapterService implements BaseService {
+public class ${tableName?cap_first}Service extends AdapterService {
 	
 	@Autowired
     ${tableName?cap_first}Mapper ${className}Mapper;
@@ -26,6 +28,10 @@ public class ${tableName?cap_first}Service extends AdapterService implements Bas
 		return ${className}Mapper.update(${className});
 	}
 	
+	public int delete(Long id) {
+		return ${className}Mapper.delete(id);
+	}
+	
 	public void save(${tableName?cap_first} ${className}) {
 		if(${className}.getId()!=null){
 			${className}Mapper.update(${className});
@@ -33,69 +39,55 @@ public class ${tableName?cap_first}Service extends AdapterService implements Bas
 			${className}Mapper.insert(${className});
 		}
 	}
-	
-	public int delete(Long id) {
-		return ${className}Mapper.delete(id);
-	}
 
 	public ${tableName?cap_first} getById(Long id) {
 		return ${className}Mapper.getById(id);
 	}
 	
-	public int countByParm(${tableName?cap_first} ${className}) {
-		Map<String, Object> parm = queryParm(${className});
-		return ${className}Mapper.countByParm(parm);
+	public int countByParm(Map<String, Object> parmMap) {
+		return ${className}Mapper.countByParm(parmMap);
 	}
 	
-	public PageUtil<${tableName?cap_first}> getBeanListByParm(${tableName?cap_first} ${className}, int pageNo, Integer pageSize) {
-		PageUtil<${tableName?cap_first}> pageUtil = new PageUtil<${tableName?cap_first}>(pageNo, pageSize);
-		Map<String, Object> parm = queryParm(${className}, pageUtil);
+	public List<Map<String, Object>> getMapListByParm(Map<String, Object> parm) {
+		return  ${className}Mapper.getMapListByParm(parm);
+	}
+	
+	public List<${tableName?cap_first}> getBeanListByParm(Map<String, Object> parm) {
+		return ${className}Mapper.getBeanListByParm(parm);
+	}
+	
+	public Page<${tableName?cap_first}> getPageBeanByParm(Map<String, Object> parm) {
+		Page<${tableName?cap_first}> page = new Page<${tableName?cap_first}>((Integer)parm.get("pageNo"), (Integer)parm.get("pageSize"));
+		parm.put("start", page.getStartRow());
+		parm.put("limit", page.getPageSize());
 		
-		int count = ${className}Mapper.countByParm(parm);
-		pageUtil.setTotalRecords(count);
+		int count = this.countByParm(parm);
+		page.setTotalRecords(count);
 		
 		List<${tableName?cap_first}> list = new ArrayList<${tableName?cap_first}>();
 		if(count!=0){
-			list = ${className}Mapper.getBeanListByParm(parm);
+			list = this.getBeanListByParm(parm);
 		}
-		pageUtil.setList(list);
+		page.setList(list);
 		
-		return pageUtil;
+		return page;
 	}
 	
-	public PageUtil<Map<String, Object>> getMapListByParm(${tableName?cap_first} ${className},int pageNo, Integer pageSize) {
-		PageUtil<Map<String, Object>> pageUtil = new PageUtil<Map<String, Object>>(pageNo, pageSize);
-		Map<String, Object> parm = queryParm(${className}, pageUtil);
+	public Page<Map<String, Object>> getPageMapByParm(Map<String, Object> parm) {
+		Page<Map<String, Object>> page = new Page<Map<String, Object>>((Integer)parm.get("pageNo"), (Integer)parm.get("pageSize"));
+		parm.put("start", page.getStartRow());
+		parm.put("limit", page.getPageSize());
 		
-		int count = ${className}Mapper.countByParm(parm);
-		pageUtil.setTotalRecords(count);
+		int count = this.countByParm(parm);
+		page.setTotalRecords(count);
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		if(count!=0){
-			list = ${className}Mapper.getMapListByParm(parm);
+			list = this.getMapListByParm(parm);
 		}
-		pageUtil.setList(list);
+		page.setList(list);
 		
-		return pageUtil;
+		return page;
 	}
 	
-	private Map<String, Object> queryParm(${tableName?cap_first} ${className}) {
-		Map<String, Object> parm = new HashMap<String, Object>();
-		if(${className}!=null){
-			
-		}
-		return parm;
-	}
-	
-	private Map<String, Object> queryParm(${tableName?cap_first} ${className}, PageUtil pageUtil) {
-		Map<String, Object> parm = new HashMap<String, Object>();
-		if(${className}!=null){
-			
-		}
-		parm.put("start", pageUtil.getStartRow());
-		parm.put("limit", pageUtil.getPageSize());
-		parm.put("orderby", "id desc" );
-		return parm;
-	}
-
 }

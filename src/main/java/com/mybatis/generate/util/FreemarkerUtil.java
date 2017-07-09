@@ -32,7 +32,8 @@ public class FreemarkerUtil {
                 cfg = new Configuration();  
                 // 这里有三种方式读取  
                 // （一个文件目录）
-                String path = Thread.currentThread().getContextClassLoader().getResource("templates").toString(); 
+                String templateFolderName = PropertiesUtil.getProperty("template_folder_name");  
+                String path = Thread.currentThread().getContextClassLoader().getResource(templateFolderName).toString(); 
     			path = path.replaceAll("file:/", "");
                 cfg.setDirectoryForTemplateLoading(new File(path));  
                 // classpath下的一个目录（读取jar文件）  
