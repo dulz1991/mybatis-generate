@@ -2,35 +2,26 @@ package com.mybatis.generate.db;
 
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.mybatis.generate.util.PropertiesUtil;
-import com.mybatis.generate.util.SqlUtil;
 
-public class DBManager {
+public class MysqlDBManager {
 	
-	private static final DBManager instance=new DBManager();    
-    private static ComboPooledDataSource cpds=new ComboPooledDataSource(true);     
+	private static MysqlDBManager instance= null;    
+    private static ComboPooledDataSource cpds = new ComboPooledDataSource(true);     
         
-    /**  
-     * 此处可以不配置，采用默认也行  
-     */    
     static{    
-        cpds.setDataSourceName("mydatasource");    
-        cpds.setJdbcUrl(PropertiesUtil.getProperty("jdbc.url"));    
+        cpds.setDataSourceName("mysqlDatasource");    
+        cpds.setJdbcUrl(PropertiesUtil.getProperty("jdbc.mysql.url"));    
         try {    
-            cpds.setDriverClass(PropertiesUtil.getProperty("jdbc.driverClassName"));    
+            cpds.setDriverClass(PropertiesUtil.getProperty("jdbc.mysql.driverClassName"));    
         } catch (PropertyVetoException e) {    
             e.printStackTrace();    
         }    
-        cpds.setUser(PropertiesUtil.getProperty("jdbc.username"));    
-        cpds.setPassword(PropertiesUtil.getProperty("jdbc.password"));    
+        cpds.setUser(PropertiesUtil.getProperty("jdbc.mysql.username"));    
+        cpds.setPassword(PropertiesUtil.getProperty("jdbc.mysql.password"));    
         cpds.setMaxPoolSize(Integer.valueOf(PropertiesUtil.getProperty("jdbc.maxPoolSize")));    
         cpds.setMinPoolSize(Integer.valueOf(PropertiesUtil.getProperty("jdbc.minPoolSize")));    
         cpds.setAcquireIncrement(Integer.valueOf(PropertiesUtil.getProperty("jdbc.acquireIncrement")));    
@@ -38,9 +29,12 @@ public class DBManager {
         cpds.setMaxIdleTime(Integer.valueOf(PropertiesUtil.getProperty("jdbc.maxIdleTime")));    
     }    
         
-    private DBManager(){}    
+    private MysqlDBManager(){}    
         
-    public static DBManager getInstance(){    
+    public static MysqlDBManager getInstance(){
+    	if(instance==null){
+    		instance = new MysqlDBManager();
+    	}
         return instance;    
     }    
         

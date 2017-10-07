@@ -10,11 +10,11 @@ import com.demo.my.base.mybatis.mapper.base.BaseMapper;
 
 public interface ${className?cap_first}Mapper extends BaseMapper {
 
-	int insert(${className?cap_first} ${className});
+	int insert(${className?cap_first} ${className?lower_case});
 	
 	int delete(@Param("id") Long id);
 	
-	int update(${className?cap_first} ${className});
+	int update(${className?cap_first} ${className?lower_case});
 	
 	${className?cap_first} getById(@Param("id") Long id);
 	

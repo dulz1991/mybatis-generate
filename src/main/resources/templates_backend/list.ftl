@@ -68,9 +68,9 @@
 <script type="text/javascript">
 $(function(){
 	$('#datatable').datatable({
-		url_load : '/backend/${className}/getList',
-		url_edit : '/backend/${className}/edit',
-		url_remove : '/backend/${className}/doDelete',
+		url_load : '/backend/${className?lower_case}/getList',
+		url_edit : '/backend/${className?lower_case}/edit',
+		url_remove : '/backend/${className?lower_case}/doDelete',
 		backFn : function(p) {
 			// console.log(p);
 		}

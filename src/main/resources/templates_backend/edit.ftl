@@ -19,7 +19,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-12">
-							<button class="btn btn-info btn-icon" onclick="$.fn.doSaveAndJump('.form','/backend/${className}/doSave','/backend/${className}/list')">
+							<button class="btn btn-info btn-icon" onclick="$.fn.doSaveAndJump('.form','/backend/${className?lower_case}/doSave','/backend/${className?lower_case}/list')">
 								<span>提交</span>
 							</button>
 						</div>

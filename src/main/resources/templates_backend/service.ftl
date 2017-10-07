@@ -8,63 +8,63 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.demo.my.base.util.Page;
 
-import com.demo.my.base.model.${tableName?cap_first};
-import com.demo.my.base.mybatis.mapper.ds1mapper.${tableName?cap_first}Mapper;
+import com.demo.my.base.model.${className?cap_first};
+import com.demo.my.base.mybatis.mapper.ds1mapper.${className?cap_first}Mapper;
 
 import com.demo.my.base.service.common.AdapterService;
 
 
 @Component  
-public class ${tableName?cap_first}Service extends AdapterService {
+public class ${className?cap_first}Service extends AdapterService {
 	
 	@Autowired
-    ${tableName?cap_first}Mapper ${className}Mapper;
+    ${className?cap_first}Mapper ${className?lower_case}Mapper;
     
-    public int insert(${tableName?cap_first} ${className}) {
-		return ${className}Mapper.insert(${className});
+    public int insert(${className?cap_first} ${className?lower_case}) {
+		return ${className?lower_case}Mapper.insert(${className?lower_case});
 	}
     
-    public int update(${tableName?cap_first} ${className}) {
-		return ${className}Mapper.update(${className});
+    public int update(${className?cap_first} ${className?lower_case}) {
+		return ${className?lower_case}Mapper.update(${className?lower_case});
 	}
 	
 	public int delete(Long id) {
-		return ${className}Mapper.delete(id);
+		return ${className?lower_case}Mapper.delete(id);
 	}
 	
-	public void save(${tableName?cap_first} ${className}) {
-		if(${className}.getId()!=null){
-			${className}Mapper.update(${className});
+	public void save(${className?cap_first} ${className?lower_case}) {
+		if(${className?lower_case}.getId()!=null){
+			${className?lower_case}Mapper.update(${className?lower_case});
 		} else {
-			${className}Mapper.insert(${className});
+			${className?lower_case}Mapper.insert(${className?lower_case});
 		}
 	}
 
-	public ${tableName?cap_first} getById(Long id) {
-		return ${className}Mapper.getById(id);
+	public ${className?cap_first} getById(Long id) {
+		return ${className?lower_case}Mapper.getById(id);
 	}
 	
 	public int countByParm(Map<String, Object> parmMap) {
-		return ${className}Mapper.countByParm(parmMap);
+		return ${className?lower_case}Mapper.countByParm(parmMap);
 	}
 	
 	public List<Map<String, Object>> getMapListByParm(Map<String, Object> parm) {
-		return  ${className}Mapper.getMapListByParm(parm);
+		return  ${className?lower_case}Mapper.getMapListByParm(parm);
 	}
 	
-	public List<${tableName?cap_first}> getBeanListByParm(Map<String, Object> parm) {
-		return ${className}Mapper.getBeanListByParm(parm);
+	public List<${className?cap_first}> getBeanListByParm(Map<String, Object> parm) {
+		return ${className?lower_case}Mapper.getBeanListByParm(parm);
 	}
 	
-	public Page<${tableName?cap_first}> getPageBeanByParm(Map<String, Object> parm) {
-		Page<${tableName?cap_first}> page = new Page<${tableName?cap_first}>((Integer)parm.get("pageNo"), (Integer)parm.get("pageSize"));
+	public Page<${className?cap_first}> getPageBeanByParm(Map<String, Object> parm) {
+		Page<${className?cap_first}> page = new Page<${className?cap_first}>((Integer)parm.get("pageNo"), (Integer)parm.get("pageSize"));
 		parm.put("start", page.getStartRow());
 		parm.put("limit", page.getPageSize());
 		
 		int count = this.countByParm(parm);
 		page.setTotalRecords(count);
 		
-		List<${tableName?cap_first}> list = new ArrayList<${tableName?cap_first}>();
+		List<${className?cap_first}> list = new ArrayList<${className?cap_first}>();
 		if(count!=0){
 			list = this.getBeanListByParm(parm);
 		}

@@ -2,10 +2,11 @@ package com.demo.my.base.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.math.BigDecimal;
 
 public class ${className} implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = ${serialVersionUID}L;
 
 	<#list fieldlist?keys as itemKey>
 	private ${fieldlist[itemKey]} ${itemKey};
