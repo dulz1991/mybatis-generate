@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>   
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
-<mapper namespace="com.sqe.shop.mapper.${className?cap_first}Mapper">
+<mapper namespace="com.iTouch.store.supplier.platform.mapper.${baseMapperName}.${className?cap_first}Mapper">
 
-<resultMap type="com.sqe.shop.model.${className?cap_first}" id="${className?cap_first}BaseMapper">
+<resultMap type="com.iTouch.store.supplier.platform.model.${className?cap_first}" id="${className?cap_first}BaseMapper">
 	<#list dealField2Column?keys as itemKey>
 	<id property="${itemKey}" column="${dealField2Column[itemKey]}" />
 	</#list>
@@ -27,7 +27,7 @@
 	<set>
 	<#list dealField2Column?keys as itemKey>
 		<#if itemKey!="id">
-			<if test="${itemKey} != null and ${itemKey}!=''">  
+			<if test="${itemKey} != null">  
 	        	${dealField2Column[itemKey]}=<#noparse>#{</#noparse>${itemKey}},
 	    	</if>
 		</#if>
@@ -44,28 +44,27 @@
 	SELECT * FROM ${tableName} WHERE id=<#noparse>#{id}</#noparse> 
 </select>
 
-<select id="countByParm" resultType="Integer" parameterType="HashMap">
+<select id="getBeanListByParm_count" resultType="Integer" parameterType="HashMap">
 	select count(*) from ${tableName}  where 1=1 
 	<#list dealField2Column?keys as itemKey>
 		<#if itemKey!="id">
-			<if test="parm.${itemKey} != null and parm.${itemKey}!=''">
+			<if test="parm.${itemKey} != null">
 		     	and ${dealField2Column[itemKey]} = <#noparse>#{parm.</#noparse>${itemKey}}
 		   	</if>
 		</#if>
 	</#list>
 </select>
-
 <select id="getBeanListByParm" parameterType="HashMap" resultMap="${className?cap_first}BaseMapper">
 	select * from ${tableName} where 1=1 
 	<#list dealField2Column?keys as itemKey>
 		<#if itemKey!="id">
-			<if test="parm.${itemKey} != null and parm.${itemKey}!=''">
+			<if test="parm.${itemKey} != null">
 		     	and ${dealField2Column[itemKey]} = <#noparse>#{parm.</#noparse>${itemKey}}
 		   	</if>
 	   	</#if>
 	</#list>
 	<#noparse>
-		<if test="parm.orderby != null and parm.orderby!=''">
+		<if test="parm.orderby != null">
 	   		order by ${parm.orderby}
 	   	</if>
 		<if test="parm.start != null">
@@ -75,7 +74,10 @@
 </select>
 
 
-<select id="getMapListByParm" parameterType="HashMap" resultType="HashMap">
+<select id="getListByParm_count" parameterType="HashMap" resultType="Integer">
+	select count(*) from ${tableName} where 1=1
+</select>
+<select id="getListByParm" parameterType="HashMap" resultType="HashMap">
 	select * from ${tableName} where 1=1
 	<#noparse>
 		<if test="parm.orderby != null">

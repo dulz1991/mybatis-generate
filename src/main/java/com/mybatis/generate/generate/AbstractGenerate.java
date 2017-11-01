@@ -1,11 +1,14 @@
 package com.mybatis.generate.generate;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 import com.mybatis.generate.util.FreemarkerUtil;
+import com.mybatis.generate.util.PropertiesUtil;
 
 public abstract class AbstractGenerate extends BaseGenerate {
 	
@@ -48,8 +51,8 @@ public abstract class AbstractGenerate extends BaseGenerate {
 		this.generateController(tableName);
 		this.generateMapper(tableName);
 		this.generateXml(tableName, tableColumsList, field2Type, field2Column);
-		this.generateList(tableName);
-		this.generateEdit(tableName);
+		this.generateList(tableName,field2Type);
+		this.generateEdit(tableName,field2Type);
 		System.out.println("==================>结束创建文件");
 	}
 	
@@ -80,7 +83,7 @@ public abstract class AbstractGenerate extends BaseGenerate {
 			}
 			resMap.put("fieldlist", resultColumnMap);
 			
-			resMap.put("serialVersionUID", UUID.randomUUID().toString().replaceAll("-", ""));
+			resMap.put("serialVersionUID", "-" + new Date().getTime() );
 			
 			//生成文件
 			FreemarkerUtil.createFile("model.ftl", resMap, targetFile);
@@ -106,6 +109,23 @@ public abstract class AbstractGenerate extends BaseGenerate {
 			
 			//类名
 			resMap.put("className", className);
+			
+			String mysqlUrl = PropertiesUtil.getProperty("jdbc.mysql.url","");
+			if(mysqlUrl.contains("account")){
+				resMap.put("baseServiceName", "Accounts");
+			} else if(mysqlUrl.contains("other")){
+				resMap.put("baseServiceName", "Other");
+			} else if(mysqlUrl.contains("base")){
+				resMap.put("baseServiceName", "Base");
+			} else if(mysqlUrl.contains("goods")){
+				resMap.put("baseServiceName", "Goods");
+			} else if(mysqlUrl.contains("log")){
+				resMap.put("baseServiceName", "Log");
+			} else if(mysqlUrl.contains("order")){
+				resMap.put("baseServiceName", "Order");
+			} else {
+				resMap.put("baseServiceName", "");
+			}
 			
 			//自动生成文件
 			FreemarkerUtil.createFile("service.ftl", resMap, targetFile);
@@ -163,13 +183,30 @@ public abstract class AbstractGenerate extends BaseGenerate {
 			resMap.put("className", className);
 			resMap.put("tableName", tableName);
 			
+			String mysqlUrl = PropertiesUtil.getProperty("jdbc.mysql.url","");
+			if(mysqlUrl.contains("account")){
+				resMap.put("baseMapperName", "accountsMapper");
+			} else if(mysqlUrl.contains("other")){
+				resMap.put("baseMapperName", "otherMapper");
+			} else if(mysqlUrl.contains("base")){
+				resMap.put("baseMapperName", "baseMapper");
+			} else if(mysqlUrl.contains("goods")){
+				resMap.put("baseMapperName", "goodsMapper");
+			} else if(mysqlUrl.contains("log")){
+				resMap.put("baseMapperName", "logMapper");
+			} else if(mysqlUrl.contains("order")){
+				resMap.put("baseMapperName", "orderMapper");
+			} else {
+				resMap.put("baseMapperName", "");
+			}
+			
 			//字段列表
 			Map<String, Object> resultColumnMap = new HashMap<String, Object>();
 			for(String column : columnMap.keySet()){
 				//java字段
 				String javaField = databaseField2JavaField(column);
 				//java字段对应的字段类型
-				resultColumnMap.put(javaField, getColumnType(columnMap.get(column)));
+				resultColumnMap.put(javaField, columnMap.get(column));
 			}
 			resMap.put("dealField2Column", resultColumnMap);
 			
@@ -200,6 +237,23 @@ public abstract class AbstractGenerate extends BaseGenerate {
 			resMap.put("tableName", tableName);
 			resMap.put("className", className);
 			
+			String mysqlUrl = PropertiesUtil.getProperty("jdbc.mysql.url","");
+			if(mysqlUrl.contains("account")){
+				resMap.put("baseServiceName", "Accounts");
+			} else if(mysqlUrl.contains("other")){
+				resMap.put("baseServiceName", "Other");
+			} else if(mysqlUrl.contains("base")){
+				resMap.put("baseServiceName", "Base");
+			} else if(mysqlUrl.contains("goods")){
+				resMap.put("baseServiceName", "Goods");
+			} else if(mysqlUrl.contains("log")){
+				resMap.put("baseServiceName", "Log");
+			} else if(mysqlUrl.contains("order")){
+				resMap.put("baseServiceName", "Order");
+			} else {
+				resMap.put("baseServiceName", "");
+			}
+			
 			//自动生成文件
 			FreemarkerUtil.createFile("controller.ftl", resMap, targetFile);
 			System.out.println("==================>创建文件 " + fileName + "成功!");	
@@ -213,7 +267,7 @@ public abstract class AbstractGenerate extends BaseGenerate {
 	 * list
 	 * @param tableName
 	 */
-	public void generateList(String tableName) {
+	public void generateList(String tableName,Map<String, Object> columnMap) {
 		String className = dataTableName2ClassName(tableName);
 		String fileName = firstWord2LowerCase(className) + "_list.ftl";
 		try {
@@ -227,6 +281,16 @@ public abstract class AbstractGenerate extends BaseGenerate {
 			resMap.put("className", className);
 			resMap.put("tableName", tableName);
 			
+			//字段列表
+			Map<String, Object> resultColumnMap = new HashMap<String, Object>();
+			for(String column : columnMap.keySet()){
+				//java字段
+				String javaField = databaseField2JavaField(column);
+				//java字段对应的字段类型
+				resultColumnMap.put(javaField, getColumnType(columnMap.get(column)));
+			}
+			resMap.put("fieldlist", resultColumnMap);
+			
 			//自动生成文件
 			FreemarkerUtil.createFile("list.ftl", resMap, targetFile);
 			System.out.println("==================>创建文件 " + fileName + "成功!");	
@@ -239,8 +303,9 @@ public abstract class AbstractGenerate extends BaseGenerate {
 	/**
 	 * edits
 	 * @param tableName
+	 * @param field2Type 
 	 */
-	public void generateEdit(String tableName) {
+	public void generateEdit(String tableName, Map<String, Object> columnMap) {
 		String className = dataTableName2ClassName(tableName);
 		String fileName = firstWord2LowerCase(className) + "_edit.ftl";
 		try {
@@ -253,6 +318,16 @@ public abstract class AbstractGenerate extends BaseGenerate {
 			//类名
 			resMap.put("className", className);
 			resMap.put("tableName", tableName);
+			
+			//字段列表
+			Map<String, Object> resultColumnMap = new HashMap<String, Object>();
+			for(String column : columnMap.keySet()){
+				//java字段
+				String javaField = databaseField2JavaField(column);
+				//java字段对应的字段类型
+				resultColumnMap.put(javaField, getColumnType(columnMap.get(column)));
+			}
+			resMap.put("fieldlist", resultColumnMap);
 			
 			//自动生成文件
 			FreemarkerUtil.createFile("edit.ftl", resMap, targetFile);
