@@ -49,6 +49,7 @@
     </div>
     
     <script>
+    //数据绑定
     $('#dataTable').datatable({
 		url_load : '/${className?uncap_first}/getList',
 		parm:{

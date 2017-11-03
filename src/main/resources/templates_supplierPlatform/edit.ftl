@@ -11,7 +11,7 @@
             	
             	<#list fieldlist?keys as itemKey>
             		<div class="am-form-group am-u-sm-6">
-				    	${itemKey}<input type="text" name="${itemKey}" class="am-form-field">
+				    	${itemKey}<input type="text" name="${itemKey}" value="<#noparse>${entity.</#noparse>${itemKey}<#noparse>}</#noparse>" class="am-form-field">
 				  	</div>
             	</#list>
             	

@@ -18,10 +18,6 @@ public interface ${className?cap_first}Mapper extends BaseMapper {
 	
 	${className?cap_first} getById(@Param("id") String id);
 	
-	List<${className?cap_first}> getBeanListByParm(@Param("parm") Map<String, Object> paramMap);
-	int getBeanListByParm_count(@Param("parm") Map<String, Object> paramMap);
-
-	List<Map<String, Object>> getListByParm( @Param("parm") Map<String, Object> paramMap);
-	int getListByParm_count( @Param("parm") Map<String, Object> paramMap);
+	List<${className?cap_first}> getBeanListPage(@Param("parm") Map<String, Object> paramMap);
 
 }

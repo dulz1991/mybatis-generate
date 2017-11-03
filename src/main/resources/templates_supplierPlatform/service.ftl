@@ -57,12 +57,8 @@ public class ${className?cap_first}Service extends ${baseServiceName}BaseService
 		return ${className?uncap_first}Mapper.getById(id);
 	}
 	
-	public List<Map<String, Object>> getListByParm(Map<String, Object> parm) {
-		return  ${className?uncap_first}Mapper.getListByParm(parm);
-	}
-	
-	public List<${className?cap_first}> getBeanListByParm(Map<String, Object> parm) {
-		return ${className?uncap_first}Mapper.getBeanListByParm(parm);
+	public List<${className?cap_first}> getBeanListPage(Map<String, Object> parm) {
+		return ${className?uncap_first}Mapper.getBeanListPage(parm);
 	}
 	
 }

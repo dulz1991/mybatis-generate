@@ -9,7 +9,7 @@ public class main {
 	//private static String[] tables = {"user_thumb","advertisement","permission","role","user","comment","image","inform","message","news","post","product","product_type","question_answer","questions","section","shop","topic","thread"};
 	/*private static String[] tables = {"collection","comment","discovery","demo","demo_menu","sys_cfg","code_menu","code_sub_menu",
 		"code","blog","blog_menu","blog_log","demo","demo_menu","user_log","user_role","user","active","active_user"};*/
-	private static String[] tables = {"supplier_user"};
+	private static String[] tables = {"account_supplier_r"};
 	
 	public static void main(String[] args) {
 		String db = PropertiesUtil.getProperty("generate.database");

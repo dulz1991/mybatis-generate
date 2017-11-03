@@ -9,17 +9,14 @@
 </resultMap>  
 
 <insert id="insert">
-	<selectKey resultType="long" keyProperty="id">  
-   		select LAST_INSERT_ID()
-   	</selectKey>
 	insert into ${tableName}
 	<#assign i=0 />
 	<#assign pos=1 />
-	(<#list dealField2Column?keys as itemKey><#assign i=i+1 /><#if itemKey!="id"><#if i&gt;pos>,</#if>${dealField2Column[itemKey]}<#else><#assign pos=pos+1 /></#if></#list>)
+	(<#list dealField2Column?keys as itemKey><#assign i=i+1 /><#if itemKey!="xx"><#if i&gt;pos>,</#if>${dealField2Column[itemKey]}<#else><#assign pos=pos+1 /></#if></#list>)
 	values
 	<#assign i=0 />
 	<#assign pos=1 />
-	(<#list dealField2Column?keys as itemKey><#assign i=i+1 /><#if itemKey!="id"><#if i&gt;pos>,</#if><#noparse>#{</#noparse>${itemKey}<#noparse>}</#noparse><#else><#assign pos=pos+1 /></#if></#list>)
+	(<#list dealField2Column?keys as itemKey><#assign i=i+1 /><#if itemKey!="xx"><#if i&gt;pos>,</#if><#noparse>#{</#noparse>${itemKey}<#noparse>}</#noparse><#else><#assign pos=pos+1 /></#if></#list>)
 </insert>
 
 <update id="update">
@@ -44,17 +41,7 @@
 	SELECT * FROM ${tableName} WHERE id=<#noparse>#{id}</#noparse> 
 </select>
 
-<select id="getBeanListByParm_count" resultType="Integer" parameterType="HashMap">
-	select count(*) from ${tableName}  where 1=1 
-	<#list dealField2Column?keys as itemKey>
-		<#if itemKey!="id">
-			<if test="parm.${itemKey} != null">
-		     	and ${dealField2Column[itemKey]} = <#noparse>#{parm.</#noparse>${itemKey}}
-		   	</if>
-		</#if>
-	</#list>
-</select>
-<select id="getBeanListByParm" parameterType="HashMap" resultMap="${className?cap_first}BaseMapper">
+<select id="getBeanListPage" parameterType="HashMap" resultMap="${className?cap_first}BaseMapper">
 	select * from ${tableName} where 1=1 
 	<#list dealField2Column?keys as itemKey>
 		<#if itemKey!="id">
@@ -67,26 +54,10 @@
 		<if test="parm.orderby != null">
 	   		order by ${parm.orderby}
 	   	</if>
-		<if test="parm.start != null">
+	   	<if test="parm.start != null">
 			limit #{parm.start},#{parm.limit}
 		</if>
 	</#noparse>
-</select>
-
-
-<select id="getListByParm_count" parameterType="HashMap" resultType="Integer">
-	select count(*) from ${tableName} where 1=1
-</select>
-<select id="getListByParm" parameterType="HashMap" resultType="HashMap">
-	select * from ${tableName} where 1=1
-	<#noparse>
-		<if test="parm.orderby != null">
-	   		order by ${parm.orderby}
-	   	</if>
-		<if test="parm.start != null">
-			limit #{parm.start},#{parm.limit}
-		</if>
-	</#noparse> 
 </select>
 
 
