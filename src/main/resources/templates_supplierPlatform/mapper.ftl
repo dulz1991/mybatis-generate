@@ -1,4 +1,4 @@
-package com.iTouch.store.supplier.platform.mapper.accountsMapper;
+package com.iTouch.store.supplier.platform.mapper.${baseServiceName?uncap_first}Mapper;
 
 import java.util.List;
 import java.util.Map;
@@ -10,11 +10,11 @@ import com.iTouch.store.supplier.platform.model.${className?cap_first};
 
 public interface ${className?cap_first}Mapper extends BaseMapper {
 
-	int insert(${className?cap_first} ${className?lower_case});
+	int insert(${className?cap_first} ${className?uncap_first});
 	
 	int delete(@Param("id") String id);
 	
-	int update(${className?cap_first} ${className?lower_case});
+	int update(${className?cap_first} ${className?uncap_first});
 	
 	${className?cap_first} getById(@Param("id") String id);
 	

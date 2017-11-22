@@ -119,8 +119,8 @@ public abstract class AbstractGenerate extends BaseGenerate {
 				resMap.put("baseServiceName", "Base");
 			} else if(mysqlUrl.contains("goods")){
 				resMap.put("baseServiceName", "Goods");
-			} else if(mysqlUrl.contains("log")){
-				resMap.put("baseServiceName", "Log");
+			} else if(mysqlUrl.contains("logs")){
+				resMap.put("baseServiceName", "Logs");
 			} else if(mysqlUrl.contains("order")){
 				resMap.put("baseServiceName", "Order");
 			} else {
@@ -151,6 +151,23 @@ public abstract class AbstractGenerate extends BaseGenerate {
 			
 			//类名
 			resMap.put("className", className);
+			
+			String mysqlUrl = PropertiesUtil.getProperty("jdbc.mysql.url","");
+			if(mysqlUrl.contains("account")){
+				resMap.put("baseServiceName", "Accounts");
+			} else if(mysqlUrl.contains("other")){
+				resMap.put("baseServiceName", "Other");
+			} else if(mysqlUrl.contains("base")){
+				resMap.put("baseServiceName", "Base");
+			} else if(mysqlUrl.contains("goods")){
+				resMap.put("baseServiceName", "Goods");
+			} else if(mysqlUrl.contains("logs")){
+				resMap.put("baseServiceName", "Logs");
+			} else if(mysqlUrl.contains("order")){
+				resMap.put("baseServiceName", "Order");
+			} else {
+				resMap.put("baseServiceName", "");
+			}
 			
 			//自动生成文件
 			FreemarkerUtil.createFile("mapper.ftl", resMap, targetFile);
@@ -246,8 +263,8 @@ public abstract class AbstractGenerate extends BaseGenerate {
 				resMap.put("baseServiceName", "Base");
 			} else if(mysqlUrl.contains("goods")){
 				resMap.put("baseServiceName", "Goods");
-			} else if(mysqlUrl.contains("log")){
-				resMap.put("baseServiceName", "Log");
+			} else if(mysqlUrl.contains("logs")){
+				resMap.put("baseServiceName", "Logs");
 			} else if(mysqlUrl.contains("order")){
 				resMap.put("baseServiceName", "Order");
 			} else {

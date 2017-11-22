@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.iTouch.store.supplier.platform.model.${className?cap_first};
-import com.iTouch.store.supplier.platform.mapper.accountsMapper.${className?cap_first}Mapper;
+import com.iTouch.store.supplier.platform.mapper.${baseServiceName?uncap_first}Mapper.${className?cap_first}Mapper;
 
 
 @Component  
