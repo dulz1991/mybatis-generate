@@ -14,7 +14,9 @@
 			  		<#noparse><@select id="selectId" datas={"0":"选项1","1":"选项2"} value="0" /></#noparse>
 			  	</div>
 				
-				<button type="button" class="am-btn am-btn-default" onclick="$.fn.autoSearch('.search-form')">搜索</button>
+				<div class="am-form-group am-u-sm-3">
+					<@btnSearch onclick="$.fn.autoSearch('.search-form')" />
+				</div>
 			</form>
         </div>
 	</div>

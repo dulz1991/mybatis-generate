@@ -1,4 +1,4 @@
-package com.iTouch.store.supplier.platform.controller;
+package com.iTouch.store.supplier.platform.controller.${baseServiceName?uncap_first};
 
 import java.util.Map;
 
@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.iTouch.store.supplier.platform.coommon.BaseResult;
+import com.iTouch.store.supplier.platform.common.BaseResult;
+import com.iTouch.store.supplier.platform.controller.BaseController;
 import com.iTouch.store.supplier.platform.model.${className?cap_first};
 import com.iTouch.store.supplier.platform.service.${baseServiceName?uncap_first}.${className?cap_first}Service;
 import com.iTouch.store.supplier.platform.util.Page;
