@@ -17,7 +17,7 @@
 		</div>	
 	<#noparse><@searchForm></#noparse>
         
-    <#noparse><@dataTable></#noparse>
+    <#noparse><@dataTable pageId="pageDiv" tableClass="am-table am-table-striped am-table-hover am-table-bordered"></#noparse>
 		<thead>
             <tr>
             	<#list fieldlist?keys as itemKey>
