@@ -13,7 +13,7 @@
 	  	</div>
 		
 		<div class="am-form-group am-u-sm-3">
-			<@btnSearch onclick="$.fn.autoSearch('.search-form')" />
+			<#noparse><@btnSearch onclick="$.fn.autoSearch('.search-form')" /></#noparse>
 		</div>	
 	<#noparse><@searchForm></#noparse>
         
