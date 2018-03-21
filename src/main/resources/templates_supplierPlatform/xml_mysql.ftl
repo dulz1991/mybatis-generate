@@ -3,7 +3,7 @@
 <mapper namespace="com.iTouch.store.supplier.platform.mapper.${baseMapperName}.${className?cap_first}Mapper">
 
 <resultMap type="com.iTouch.store.supplier.platform.model.${className?cap_first}" id="${className?cap_first}BaseMapper">
-	<#list dealField2Column?keys as itemKey>
+	<#list dealField2Column?keys as itemKey> 
 	<id property="${itemKey}" column="${dealField2Column[itemKey]}" />
 	</#list>
 </resultMap>  
