@@ -42,6 +42,15 @@ public class MySqlGenerate extends AbstractGenerate {
 		return type;
 	}
 	
+	//获取注释
+	public String getColumnComment(Object value) {
+		String type = (String) columnValueMap.get(value);
+		if(StringUtils.isBlank(type)){
+			type = "String";
+		}
+		return type;
+	}
+	
 	/**
      * // 获得所有列的数目及实际列数
 		int columnCount = data.getColumnCount();
@@ -81,7 +90,7 @@ public class MySqlGenerate extends AbstractGenerate {
      * @return
      */
     public void getTable(String tableName, List<String> tableColumsList,
-    		Map<String, Object> field2Type, Map<String, Object> field2Column) {
+    		Map<String, Object> field2Type, Map<String, Object> field2Column, Map<String, Object> field2Comment) {
     	System.out.println("==================>开始查询表字段");
 		Connection conn = null;
 		Statement statement = null;
@@ -103,6 +112,18 @@ public class MySqlGenerate extends AbstractGenerate {
             	tableColumsList.add(columnName);
             	field2Type.put(columnName, columnType);
             	field2Column.put(columnName, data.getColumnName(i));
+            }
+            //6.获取列注释
+            String schema = conn.getMetaData().getUserName();
+            ResultSet resultSet = conn.getMetaData().getColumns(null, schema.toUpperCase().toString(), tableName, "%");
+            while (resultSet.next()) {
+            	field2Comment.put(resultSet.getString("COLUMN_NAME"), resultSet.getString("REMARKS"));
+			}
+            //7.主键
+            ResultSet rst = conn.getMetaData().getPrimaryKeys(null,null,tableName);
+            if (!rst.isAfterLast()) {
+            	rst.next();
+            	primaryKey = rst.getString("COLUMN_NAME");
             }
 		} catch (Exception e) {
 			e.printStackTrace();

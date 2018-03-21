@@ -11,9 +11,11 @@ import com.mybatis.generate.util.PropertiesUtil;
 
 public class BaseGenerate {
 	
-	static List<String> tableColumsList = new ArrayList<String>();
-	static Map<String, Object> field2Type = new HashMap<String, Object>();
-	static Map<String, Object> field2Column = new HashMap<String, Object>();
+	static List<String> tableColumsList = new ArrayList<String>(); //列名列表
+	static Map<String, Object> field2Type = new HashMap<String, Object>(); //数据库列名	   对应    类型
+	static Map<String, Object> field2Column = new HashMap<String, Object>(); //数据库列名	对应	 数据库列名
+	static Map<String, Object> field2Comment = new HashMap<String, Object>(); //数据库列名	对应	数据库注释
+	static String primaryKey = "";
 	
 	/**
 	 * 数据库字段转Java字段

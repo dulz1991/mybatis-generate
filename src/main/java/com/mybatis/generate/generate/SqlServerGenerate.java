@@ -3,7 +3,6 @@ package com.mybatis.generate.generate;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.mybatis.generate.db.MysqlDBManager;
 import com.mybatis.generate.db.SqlServerDBManager;
 import com.mybatis.generate.util.SqlUtil;
 
@@ -82,7 +80,7 @@ public class SqlServerGenerate extends AbstractGenerate {
      * @return
      */
     public void getTable(String tableName, List<String> tableColumsList,
-    		Map<String, Object> field2Type, Map<String, Object> field2Column) {
+    		Map<String, Object> field2Type, Map<String, Object> field2Column,Map<String, Object> field2Comment) {
     	System.out.println("==================>开始查询表字段");
 		Connection conn = null;
 		Statement statement = null;
@@ -109,14 +107,15 @@ public class SqlServerGenerate extends AbstractGenerate {
 			e.printStackTrace();
 		} finally {
 			if(conn!=null){
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
 			}
 		}
         System.out.println("==================>结束查询表字段");
+	}
+
+	@Override
+	public String getColumnComment(Object value) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

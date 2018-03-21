@@ -14,7 +14,7 @@ import com.iTouch.store.supplier.platform.mapper.${baseServiceName?uncap_first}M
 public class ${className?cap_first}Service extends ${baseServiceName}BaseService {
 	
 	@Autowired
-    ${className?cap_first}Mapper ${className?uncap_first}Mapper;
+    private ${className?cap_first}Mapper ${className?uncap_first}Mapper;
     
     public boolean insert(${className?cap_first} ${className?uncap_first}) {
 		int count =  ${className?uncap_first}Mapper.insert(${className?uncap_first});
