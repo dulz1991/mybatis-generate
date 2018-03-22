@@ -61,6 +61,29 @@ public class ${className?cap_first}Controller extends BaseController {
 	}
 	
 	/**
+	 * 详情页
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/toDetail")
+	public ModelAndView toDetail(String ${primaryKey2Java}) {
+		try {
+			ModelAndView model = new ModelAndView("report/${className?uncap_first}_detail.jsp");
+			if(StringUtils.isNotBlank(id)){
+				${className?cap_first}Info entity = ${className?uncap_first}Service.getEntityById(${primaryKey2Java});
+				model.addObject("entity", entity);
+			} else {
+				PopupMsgUtil.alertMsg(response, "参数异常");
+				return null;
+			}
+			return model;
+		} catch (Exception e) {
+			PopupMsgUtil.alertMsg(response, "系统异常");
+			return null;
+		}
+	}
+	
+	/**
 	 * 编辑页面
 	 * @param id
 	 * @return

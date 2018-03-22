@@ -53,7 +53,7 @@
 							<th field="check_box" value="${primaryKey2Java}">
 								<input type="checkbox" id="chkAll" />
 							</th>
-							<th field="index_no">排序号</th>
+							<th field="index_no" xym-attrs='{textFun:"viewDetail",args:"${primaryKey2Java}"}'>排序号</th>
 							<#list fieldlist?keys as itemKey>
 							<th field="${itemKey}">${itemKey}</th>
 							</#list>
@@ -78,6 +78,12 @@
 	    url_load: '/${className?uncap_first}/getList.do', //加载数据
 	    url_delete: '/${className?uncap_first}/toDelete.do' //删除
 	});
+	
+	//查看详情
+	function viewDetail(${primaryKey2Java}){
+		$.common.info("<div id='toDetail'><i class='fa fa-spinner'></i>加载中...</div>");
+		$('#toDetail').load("/${className?uncap_first}/toDetail.do?${primaryKey2Java}=" +${primaryKey2Java}); 
+	}
 	
 	//编辑
 	var saveUrl = '/${className?uncap_first}/doSave';

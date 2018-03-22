@@ -59,6 +59,7 @@ public abstract class AbstractGenerate extends BaseGenerate {
 		this.generateXml(tableName, tableColumsList, field2Type, field2Column);
 		this.generateList(tableName,field2Type);
 		this.generateEdit(tableName,field2Type);
+		this.generateDetail(tableName,field2Type);
 		System.out.println("==================>结束创建文件");
 	}
 	
@@ -398,6 +399,49 @@ public abstract class AbstractGenerate extends BaseGenerate {
 			
 			//自动生成文件
 			FreemarkerUtil.createFile("edit.ftl", resMap, targetFile);
+			System.out.println("==================>创建文件 " + fileName + "成功!");	
+		} catch (Exception e) {
+			System.out.println("==================>创建文件 " + fileName + "失败!");
+			System.out.println(e.getMessage());
+		}	
+	}
+	
+	/**
+	 * detail
+	 * @param tableName
+	 * @param field2Type
+	 */
+	private void generateDetail(String tableName, Map<String, Object> field2Type) {
+		String className = dataTableName2ClassName(tableName);
+		
+		String fileName = firstWord2LowerCase(className) + "_detail.ftl";
+		if(PropertiesUtil.getProperty("template_folder_name").equals("templates_xym")){
+			fileName = firstWord2LowerCase(className) + "_detail.jsp";
+		}
+		
+		try {
+			tableName = tableName.toLowerCase();
+			//填充ftl的数据
+			Map<String, Object> resMap = new HashMap<String, Object>();
+			//文件生成路径
+			String targetFile = targetFilePath("page", fileName);
+			
+			//字段列表
+			Map<String, Object> resultColumnMap = new HashMap<String, Object>();
+			for(String column : field2Type.keySet()){
+				//java字段
+				String javaField = databaseField2JavaField(column);
+				//java字段对应的字段类型
+				resultColumnMap.put(javaField, getColumnType(field2Type.get(column)));
+			}
+			resMap.put("fieldlist", resultColumnMap);
+			
+			//主键
+			resMap.put("primaryKey", primaryKey);
+			resMap.put("primaryKey2Java", this.databaseField2JavaField(primaryKey));
+			
+			//自动生成文件
+			FreemarkerUtil.createFile("detail.ftl", resMap, targetFile);
 			System.out.println("==================>创建文件 " + fileName + "成功!");	
 		} catch (Exception e) {
 			System.out.println("==================>创建文件 " + fileName + "失败!");
