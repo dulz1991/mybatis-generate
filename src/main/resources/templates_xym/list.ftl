@@ -53,12 +53,12 @@
 							<th field="check_box" value="${primaryKey2Java}">
 								<input type="checkbox" id="chkAll" />
 							</th>
-							<th field="index_no" xym-attrs='{textFun:"viewDetail",args:"${primaryKey2Java}"}'>排序号</th>
+							<th field="index_no" width="60">序号</th>
 							<#list fieldlist?keys as itemKey>
 							<th field="${itemKey}">${itemKey}</th>
 							</#list>
 							<th field="button" btn_list='[
-			                {fnName:"toEdit",args:"${primaryKey2Java},【修改此字段】",name:"修改",cls:"btn btn-warning btn-xs margin-right-5"},
+			                {fnName:"toEdit",args:"${primaryKey2Java}",name:"修改",cls:"btn btn-warning btn-xs margin-right-5"},
 			                {fnName:"$.fn.deleteById",args:"${primaryKey2Java}",name:"删除",cls:"btn btn-danger btn-xs"}
 			                ]'>操作</th>
 						</tr>

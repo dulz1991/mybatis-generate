@@ -55,7 +55,7 @@ public abstract class AbstractGenerate extends BaseGenerate {
 		this.generateModel(tableName, field2Type, field2Comment);
 		this.generateController(tableName);
 		this.generateService(tableName);
-		/*this.generateMapper(tableName);*/
+		this.generateMapper(tableName);
 		this.generateXml(tableName, tableColumsList, field2Type, field2Column);
 		this.generateList(tableName,field2Type);
 		this.generateEdit(tableName,field2Type);
@@ -322,10 +322,7 @@ public abstract class AbstractGenerate extends BaseGenerate {
 	public void generateList(String tableName,Map<String, Object> columnMap) {
 		String className = dataTableName2ClassName(tableName);
 		
-		String fileName = firstWord2LowerCase(className) + "_list.ftl";
-		if(PropertiesUtil.getProperty("template_folder_name").equals("templates_xym")){
-			fileName = firstWord2LowerCase(className) + "_list.jsp";
-		}
+		String fileName = firstWord2LowerCase(className) + "_list." + PropertiesUtil.getProperty("temp_type");
 		
 		try {
 			tableName = tableName.toLowerCase();
@@ -367,10 +364,7 @@ public abstract class AbstractGenerate extends BaseGenerate {
 	public void generateEdit(String tableName, Map<String, Object> columnMap) {
 		String className = dataTableName2ClassName(tableName);
 		
-		String fileName = firstWord2LowerCase(className) + "_edit.ftl";
-		if(PropertiesUtil.getProperty("template_folder_name").equals("templates_xym")){
-			fileName = firstWord2LowerCase(className) + "_edit.jsp";
-		}
+		String fileName = firstWord2LowerCase(className) + "_edit."+PropertiesUtil.getProperty("temp_type");
 		
 		try {
 			tableName = tableName.toLowerCase();
@@ -414,10 +408,7 @@ public abstract class AbstractGenerate extends BaseGenerate {
 	private void generateDetail(String tableName, Map<String, Object> field2Type) {
 		String className = dataTableName2ClassName(tableName);
 		
-		String fileName = firstWord2LowerCase(className) + "_detail.ftl";
-		if(PropertiesUtil.getProperty("template_folder_name").equals("templates_xym")){
-			fileName = firstWord2LowerCase(className) + "_detail.jsp";
-		}
+		String fileName = firstWord2LowerCase(className) + "_detail."+PropertiesUtil.getProperty("temp_type");
 		
 		try {
 			tableName = tableName.toLowerCase();
